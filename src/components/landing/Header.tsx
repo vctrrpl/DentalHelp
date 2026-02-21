@@ -18,7 +18,7 @@ function Header() {
               fill="currentColor"
             />
           </svg>
-          <span className="font-semibold text-lg">Toothy</span>
+          <span className="font-semibold text-lg">DentalHelp</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

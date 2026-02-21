@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import { PricingTable } from '@clerk/nextjs';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
 async function ProPage() {
@@ -12,7 +12,7 @@ async function ProPage() {
     <>
       <Navbar />
       <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
-        {/* ADMIN WELCOME SECTION */}
+        {/* PRO UPGRADE HERO SECTION */}
         <div className="mb-12 flex items-center justify-between bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-3xl p-8 border border-primary/20">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full border backdrop-blur-sm">

@@ -27,7 +27,7 @@ function Navbar() {
                 fill="currentColor"
               />
             </svg>
-            <span className="font-semibold text-lg">Toothy</span>
+            <span className="font-semibold text-lg">DentalHelp</span>
           </Link>
 
           <div className="flex items-center gap-6">
