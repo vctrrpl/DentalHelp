@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Toothy - AI Powered Dental Assistant',
+  title: 'DentalHelp - AI Powered Dental Assistant',
   description:
     'Get instant consultations with our AI-powered dental assistant. Available for calls round the clock.',
 };

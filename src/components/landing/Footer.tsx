@@ -19,7 +19,7 @@ function Footer() {
                   fill="currentColor"
                 />
               </svg>
-              <span className="font-semibold text-lg">Toothy</span>
+              <span className="font-semibold text-lg">DentalHelp</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               AI-powered dental assistance that actually helps.
@@ -92,7 +92,7 @@ function Footer() {
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p>
-            &copy; 2025 Toothy. Built for real people with real dental
+            &copy; 2025 DentalHelp. Built for real people with real dental
             questions.
           </p>
         </div>
