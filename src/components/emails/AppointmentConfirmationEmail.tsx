@@ -99,7 +99,8 @@ function AppointmentConfirmationEmail({
           </Text>
 
           <Text style={footerText}>
-            If you have any questions, please contact us at support@dentwise.com
+            If you have any questions, please contact us at
+            support@dentalhelp.com
           </Text>
         </Container>
       </Body>
