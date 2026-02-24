@@ -138,6 +138,22 @@ export async function bookAppointment(input: BookAppointmentInput) {
         'User not found. Please ensure your account is properly set up.',
       );
 
+    // check for existing appointment at this doctor/date/time
+    const existingAppointment = await prisma.appointment.findFirst({
+      where: {
+        doctorId: input.doctorId,
+        date: new Date(input.date),
+        time: input.time,
+        status: { in: ['CONFIRMED', 'COMPLETED'] },
+      },
+    });
+
+    if (existingAppointment) {
+      throw new Error(
+        'This time slot is already booked. Please select a different time.',
+      );
+    }
+
     const appointment = await prisma.appointment.create({
       data: {
         userId: user.id,
