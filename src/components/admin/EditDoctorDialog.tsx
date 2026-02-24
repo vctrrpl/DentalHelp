@@ -1,6 +1,7 @@
 import { useUpdateDoctor } from '@/hooks/use-doctors';
+import DoctorPhotoUpload from './DoctorPhotoUpload';
 import { formatPhoneNumber } from '@/lib/utils';
-import { Doctor } from '@prisma/client';
+import { Doctor, Gender } from '@prisma/client';
 import { useState } from 'react';
 import {
   Dialog,
@@ -43,7 +44,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
     if (editingDoctor) {
       updateDoctorMutation.mutate(
         { ...editingDoctor },
-        { onSuccess: handleClose }
+        { onSuccess: handleClose },
       );
     }
   };
@@ -53,7 +54,6 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
     setEditingDoctor(null);
   };
 
-  console.log(editingDoctor);
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[500px]">
@@ -66,6 +66,12 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
 
         {editingDoctor && (
           <div className="grid gap-4 py-4">
+            <DoctorPhotoUpload
+              currentImageUrl={editingDoctor.imageUrl}
+              onUpload={(base64) =>
+                setEditingDoctor({ ...editingDoctor, imageUrl: base64 })
+              }
+            />
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="new-name">Name *</Label>

@@ -1,4 +1,5 @@
 import { useCreateDoctor } from '@/hooks/use-doctors';
+import DoctorPhotoUpload from './DoctorPhotoUpload';
 import { Gender } from '@prisma/client';
 import { useState } from 'react';
 import {
@@ -34,6 +35,7 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
     speciality: '',
     gender: 'MALE' as Gender,
     isActive: true,
+    imageUrl: '',
   });
 
   const createDoctorMutation = useCreateDoctor();
@@ -56,6 +58,7 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
       speciality: '',
       gender: 'MALE',
       isActive: true,
+      imageUrl: '',
     });
   };
 
@@ -70,6 +73,11 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
+          <DoctorPhotoUpload
+            onUpload={(base64) =>
+              setNewDoctor({ ...newDoctor, imageUrl: base64 })
+            }
+          />
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="new-name">Name *</Label>
