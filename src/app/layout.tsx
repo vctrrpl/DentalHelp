@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import UserSync from '../components/UserSync';
 import TanStackProvider from '@/components/providers/TanStackProvider';
 import { Toaster } from 'sonner';
 
