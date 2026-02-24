@@ -2,7 +2,6 @@
 
 import { Gender } from '@prisma/client';
 import { prisma } from '../prisma';
-import { generateAvatar } from '../utils';
 import { revalidatePath } from 'next/cache';
 
 export async function getDoctors() {
@@ -31,6 +30,7 @@ interface CreateDoctorInput {
   speciality: string;
   gender: Gender;
   isActive: boolean;
+  imageUrl?: string;
 }
 
 export async function createDoctor(input: CreateDoctorInput) {
@@ -38,10 +38,11 @@ export async function createDoctor(input: CreateDoctorInput) {
     if (!input.name || !input.email)
       throw new Error('Name and email are required');
 
+    const { imageUrl, ...rest } = input;
     const doctor = await prisma.doctor.create({
       data: {
-        ...input,
-        imageUrl: generateAvatar(input.name, input.gender),
+        ...rest,
+        imageUrl: imageUrl || '',
       },
     });
 
@@ -97,6 +98,7 @@ export async function updateDoctor(input: UpdateDoctorInput) {
         speciality: input.speciality,
         gender: input.gender,
         isActive: input.isActive,
+        ...(input.imageUrl !== undefined && { imageUrl: input.imageUrl }),
       },
     });
 
@@ -104,5 +106,25 @@ export async function updateDoctor(input: UpdateDoctorInput) {
   } catch (error) {
     console.log('Error updating doctor:', error);
     throw new Error('Failed to update doctor');
+  }
+}
+
+export async function getAvailableDoctors() {
+  try {
+    const doctors = await prisma.doctor.findMany({
+      where: { isActive: true },
+      include: {
+        _count: { select: { appointments: true } },
+      },
+      orderBy: { name: 'asc' },
+    });
+
+    return doctors.map((doctor) => ({
+      ...doctor,
+      appointmentCount: doctor._count.appointments,
+    }));
+  } catch (error) {
+    console.error('Error fetching available doctors:', error);
+    throw new Error('Failed to fetch available doctors');
   }
 }

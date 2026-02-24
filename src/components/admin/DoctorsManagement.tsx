@@ -1,5 +1,10 @@
 import { useGetDoctors } from '@/hooks/use-doctors';
 import { useState } from 'react';
+import { Doctor as PrismaDoctor } from '@prisma/client';
+
+export type Doctor = PrismaDoctor & {
+  appointmentCount: number;
+};
 import {
   Card,
   CardContent,
@@ -13,6 +18,7 @@ import {
   PhoneIcon,
   PlusIcon,
   StethoscopeIcon,
+  UserIcon,
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import Image from 'next/image';
@@ -21,7 +27,7 @@ import AddDoctorDialog from './AddDoctorDialog';
 import EditDoctorDialog from './EditDoctorDialog';
 
 function DoctorsManagement() {
-  const { data: doctors } = useGetDoctors();
+  const { data: doctors = [] } = useGetDoctors();
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -68,13 +74,19 @@ function DoctorsManagement() {
                 className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50"
               >
                 <div className="flex items-center gap-4">
-                  <Image
-                    src={doctor.imageUrl}
-                    alt={doctor.name}
-                    width={48}
-                    height={48}
-                    className="size-12 rounded-full object-cover ring-2 ring-background"
-                  />
+                  {doctor.imageUrl ? (
+                    <Image
+                      src={doctor.imageUrl}
+                      alt={doctor.name}
+                      width={48}
+                      height={48}
+                      className="size-12 rounded-full object-cover ring-2 ring-background"
+                    />
+                  ) : (
+                    <div className="size-12 rounded-full bg-muted flex items-center justify-center ring-2 ring-background">
+                      <UserIcon className="size-6 text-muted-foreground" />
+                    </div>
+                  )}
 
                   <div>
                     <div className="font-semibold">{doctor.name}</div>
