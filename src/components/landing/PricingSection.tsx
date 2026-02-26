@@ -4,7 +4,10 @@ import { CheckCircleIcon } from 'lucide-react';
 
 function PricingSection() {
   return (
-    <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-background via-muted/3 to-background">
+    <section
+      id="pricing"
+      className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-background via-muted/3 to-background scroll-mt-16"
+    >
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
