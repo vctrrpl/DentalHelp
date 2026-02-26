@@ -26,6 +26,7 @@ function AppointmentsPage() {
   const [currentStep, setCurrentStep] = useState(1); // 1: select dentist, 2: select time, 3: confirm
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bookedAppointment, setBookedAppointment] = useState<any>(null);
 
   const bookAppointmentMutation = useBookAppointment();
@@ -162,13 +163,13 @@ function AppointmentsPage() {
           open={showConfirmationModal}
           onOpenChange={setShowConfirmationModal}
           appointmentDetails={{
-            doctorName: bookedAppointment.doctorName,
+            doctorName: bookedAppointment.doctorName as string,
             appointmentDate: format(
-              new Date(bookedAppointment.date),
+              new Date(bookedAppointment.date as string),
               'EEEE, MMMM d, yyyy',
             ),
-            appointmentTime: bookedAppointment.time,
-            userEmail: bookedAppointment.patientEmail,
+            appointmentTime: bookedAppointment.time as string,
+            userEmail: bookedAppointment.patientEmail as string,
           }}
         />
       )}
@@ -188,6 +189,7 @@ function AppointmentsPage() {
                 <div className="flex items-center gap-3 mb-3">
                   <div className="size-10 rounded-full flex items-center justify-center overflow-hidden bg-primary/10">
                     {appointment.doctorImageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={appointment.doctorImageUrl}
                         alt={appointment.doctorName}

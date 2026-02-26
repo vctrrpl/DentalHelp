@@ -23,7 +23,7 @@ export function useCreateDoctor() {
       // invalidate related queries to refresh data
       queryClient.invalidateQueries({ queryKey: ['getDoctors'] });
     },
-    onError: (error) => console.log('Error while creating a doctor'),
+    onError: () => console.log('Error while creating a doctor'),
   });
 
   return result;
@@ -39,7 +39,7 @@ export function useUpdateDoctor() {
       queryClient.invalidateQueries({ queryKey: ['getDoctors'] });
       queryClient.invalidateQueries({ queryKey: ['getAvailableDoctors'] });
     },
-    onError: (error) => console.log('Failed to update doctor'),
+    onError: () => console.log('Failed to update doctor'),
   });
 
   return result;

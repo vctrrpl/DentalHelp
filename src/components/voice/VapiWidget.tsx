@@ -11,7 +11,9 @@ function VapiWidget() {
   const [callActive, setCallActive] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<{ content: string; role: string }[]>(
+    [],
+  );
   const [callEnded, setCallEnded] = useState(false);
 
   const { user, isLoaded } = useUser();
@@ -52,14 +54,19 @@ function VapiWidget() {
       setIsSpeaking(false);
     };
 
-    const handleMessage = (message: any) => {
+    const handleMessage = (message: {
+      type: string;
+      transcriptType: string;
+      transcript: string;
+      role: string;
+    }) => {
       if (message.type === 'transcript' && message.transcriptType === 'final') {
         const newMessage = { content: message.transcript, role: message.role };
         setMessages((prev) => [...prev, newMessage]);
       }
     };
 
-    const handleError = (error: any) => {
+    const handleError = (error: { message?: string }) => {
       console.error('Vapi Error:', error?.message || JSON.stringify(error));
       setConnecting(false);
       setCallActive(false);
